@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('userName');
             $table->text('userPhoto');
             $table->json('userRights');
+            $table->json('class');
             $table->timestamps();
         });
     }

@@ -14,12 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // User Data
         User::create([
             'userID' => '901111',
             'pwd' => Hash::make('123456789'),
             'userName' => 'Joko Baswedan',
             'userPhoto' => 'photo.png',
-            'userRights' => '["buatCPL", "editCPL", "rancangKurikulum", "editKurikulum"]'
+            'userRights' => '["buatCPL", "editCPL", "rancangKurikulum", "editKurikulum"]',
+            'class' => '["Basis Data Jumat 7.30-10.00"]'
         ]);
 
         User::create([
@@ -27,7 +29,8 @@ class DatabaseSeeder extends Seeder
             'pwd' => Hash::make('123456789'),
             'userName' => 'Anis Subianto',
             'userPhoto' => 'photo-1.png',
-            'userRights' => '["cetakLaporan", "cetakRekap"]'
+            'userRights' => '["cetakLaporan", "cetakRekap"]',
+            'class' => '["Grafika Rabu 7.30-10.00", "Grafika Kamis 13.30-15.00"]'
         ]);
 
         User::create([
@@ -35,7 +38,14 @@ class DatabaseSeeder extends Seeder
             'pwd' => Hash::make('123456789'),
             'userName' => 'Prabowo Widodo',
             'userPhoto' => 'photo-2.png',
-            'userRights' => '["buatRPS", "editRPS", "buatBasisEvaluasi", "editBasisEvaluasi", "cetakLaporan", "inputNilai"]'
+            'userRights' => '["buatRPS", "editRPS", "buatBasisEvaluasi", "editBasisEvaluasi", "cetakLaporan", "inputNilai"]',
+            'class' => '["Algoritma Senin 7.30-10.00", "Algoritma Selasa 13.30-15.00", "Algoritma Kamis 7.30-10.00"]'
         ]);
+
+        // CPL Data
+
+        // CPMK Data
+
+        // Course Data
     }
 }
