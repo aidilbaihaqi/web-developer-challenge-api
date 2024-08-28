@@ -18,7 +18,7 @@ class AuthController extends Controller
 
         if($user && Hash::check($validated['pwd'], $user->pwd)) {
             return response()->json([
-                'userToken' => $user->createToken("AUTH KEY")->plainTextToken,
+                'userToken' => $user->userToken,
                 'userName' => $user->userName,
                 'userPhoto' => $user->userPhoto,
                 'userRights' => $user->userRights,
