@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         User::create([
             'userID' => '901111',
-            'pwd' => '123456789',
+            'pwd' => Hash::make('123456789'),
             'userName' => 'Joko Baswedan',
             'userPhoto' => 'photo.png',
             'userRights' => '["buatCPL", "editCPL", "rancangKurikulum", "editKurikulum"]'
@@ -23,7 +24,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'userID' => 'Aa7610',
-            'pwd' => '123456789',
+            'pwd' => Hash::make('123456789'),
             'userName' => 'Anis Subianto',
             'userPhoto' => 'photo-1.png',
             'userRights' => '["cetakLaporan", "cetakRekap"]'
@@ -31,7 +32,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'userID' => 'US$100',
-            'pwd' => '123456789',
+            'pwd' => Hash::make('123456789'),
             'userName' => 'Prabowo Widodo',
             'userPhoto' => 'photo-2.png',
             'userRights' => '["buatRPS", "editRPS", "buatBasisEvaluasi", "editBasisEvaluasi", "cetakLaporan", "inputNilai"]'
