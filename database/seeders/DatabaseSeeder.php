@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             'pwd' => '123456789',
             'userName' => 'Joko Baswedan',
             'userPhoto' => 'photo.png',
-            'userRights' => ["buatCPL", "editCPL", "rancangKurikulum", "editKurikulum"]
+            'userRights' => '["buatCPL", "editCPL", "rancangKurikulum", "editKurikulum"]'
         ]);
 
         User::create([
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'pwd' => '123456789',
             'userName' => 'Anis Subianto',
             'userPhoto' => 'photo-1.png',
-            'userRights' => ["cetakLaporan", "cetakRekap"]
+            'userRights' => '["cetakLaporan", "cetakRekap"]'
         ]);
 
         User::create([
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'pwd' => '123456789',
             'userName' => 'Prabowo Widodo',
             'userPhoto' => 'photo-2.png',
-            'userRights' => ["buatRPS", "editRPS", "buatBasisEvaluasi", "editBasisEvaluasi", "cetakLaporan", "inputNilai"]
+            'userRights' => '["buatRPS", "editRPS", "buatBasisEvaluasi", "editBasisEvaluasi", "cetakLaporan", "inputNilai"]'
         ]);
     }
 }
