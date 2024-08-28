@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'userID' => '901111',
             'pwd' => Hash::make('123456789'),
+            'userToken' => 'contohABC',
             'userName' => 'Joko Baswedan',
             'userPhoto' => 'photo.png',
             'userRights' => '["buatCPL", "editCPL", "rancangKurikulum", "editKurikulum"]',
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'userID' => 'Aa7610',
             'pwd' => Hash::make('123456789'),
+            'userToken' => 'contohDEF',
             'userName' => 'Anis Subianto',
             'userPhoto' => 'photo-1.png',
             'userRights' => '["cetakLaporan", "cetakRekap"]',
@@ -36,6 +38,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'userID' => 'US$100',
             'pwd' => Hash::make('123456789'),
+            'userToken' => 'contohGHI',
             'userName' => 'Prabowo Widodo',
             'userPhoto' => 'photo-2.png',
             'userRights' => '["buatRPS", "editRPS", "buatBasisEvaluasi", "editBasisEvaluasi", "cetakLaporan", "inputNilai"]',
