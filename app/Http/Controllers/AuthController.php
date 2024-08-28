@@ -17,13 +17,8 @@ class AuthController extends Controller
         $user = User::where('userID', $validated['userID'])->first();
 
         if($user && Hash::check($validated['pwd'], $user->pwd)) {
-            // Buat AUTH TOKEN user
-            $userToken = Str::random(50);
-            $user->userToken = $userToken;
-            $user->save();
-
             return response()->json([
-                'userToken' => $user->userToken,
+                'userToken' => $user->createToken("AUTH KEY")->plainTextToken,
                 'userName' => $user->userName,
                 'userPhoto' => $user->userPhoto,
                 'userRights' => $user->userRights,
