@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Kelas;
+use App\Models\CPL;
 use Illuminate\Support\Facades\Hash;
 
 class APIController extends Controller
@@ -39,6 +40,20 @@ class APIController extends Controller
         if($request->class == 'list') {
             return response()->json([
                 'class' => json_decode($kelas->kelas)
+            ], 200);
+        }else {
+            return response()->json([
+                'message' => 'Gagal Mengambil Data'
+            ], 401);
+        }
+    }
+
+    public function listCPL(Request $request) {
+        $data = CPL::select('kodecpl', 'deskripsi')->get();
+
+        if($request->cpl == 'list') {
+            return response()->json([
+                'cpl' => $data
             ], 200);
         }else {
             return response()->json([
