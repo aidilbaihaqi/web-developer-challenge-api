@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->id();
-            $table->string('kodemk')->unique();
+            $table->string('kodemk')->primary();
             $table->string('namamk');
             $table->integer('sks');
             $table->timestamps();

@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('c_p_m_k_s', function (Blueprint $table) {
-            $table->id();
+            $table->string('kodecpmk')->primary();
             $table->string('kodecpl');
-            $table->string('kodecpmk')->unique();
             $table->text('deskripsi');
             $table->timestamps();
         });
