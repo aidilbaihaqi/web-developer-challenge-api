@@ -61,4 +61,40 @@ class APIController extends Controller
             ], 401);
         }
     }
+
+    public function addCPL(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('buatCPL')) {
+            $request->validate([
+                'kodecpl' => 'required|string',
+                'deskripsi' => 'required'
+            ]);
+
+            $query = CPL::create([
+                'kodecpl' => $request->kodecpl,
+                'deskripsi' => $request->deskripsi
+            ]);
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+
+            
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
+
+        
+        
+    }
 }

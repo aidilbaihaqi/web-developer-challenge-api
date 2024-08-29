@@ -24,4 +24,5 @@ Route::post('login', [APIController::class, 'login']);
 Route::middleware('auth.token')->group(function () {
   Route::post('teachingclass', [APIController::class, 'teachingclass']);
   Route::post('listCPL', [APIController::class, 'listCPL']);
+  Route::post('addCPL', [APIController::class, 'addCPL']);
 });
