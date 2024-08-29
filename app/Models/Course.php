@@ -9,5 +9,13 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $primaryKey = 'kodemk';
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+    protected $fillable = [
+        'kodemk',
+        'namamk',
+        'sks'
+    ];
 }

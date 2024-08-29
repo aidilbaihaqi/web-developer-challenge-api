@@ -9,5 +9,13 @@ class CPMK extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $primaryKey = 'kodecpmk';
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+    protected $fillable = [
+        'kodecpmk',
+        'kodecpl',
+        'deskripsi'
+    ];
 }

@@ -9,5 +9,12 @@ class CPL extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $primaryKey = 'kodecpl';
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+    protected $fillable = [
+        'kodecpl',
+        'deskripsi'
+    ];
 }

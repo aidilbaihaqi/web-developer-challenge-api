@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('c_p_l_s', function (Blueprint $table) {
-            $table->id();
-            $table->string('kodecpl')->unique();
+            $table->string('kodecpl')->primary();
             $table->text('deskripsi');
             $table->timestamps();
         });
