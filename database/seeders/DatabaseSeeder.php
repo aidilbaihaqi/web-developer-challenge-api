@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Kelas;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -21,8 +22,7 @@ class DatabaseSeeder extends Seeder
             'userToken' => 'contohABC',
             'userName' => 'Joko Baswedan',
             'userPhoto' => 'photo.png',
-            'userRights' => '["buatCPL", "editCPL", "rancangKurikulum", "editKurikulum"]',
-            'class' => '["Basis Data Jumat 7.30-10.00"]'
+            'userRights' => json_encode(['buatCPL', 'editCPL', 'rancangKurikulum', 'editKurikulum'])
         ]);
 
         User::create([
@@ -31,18 +31,39 @@ class DatabaseSeeder extends Seeder
             'userToken' => 'contohDEF',
             'userName' => 'Anis Subianto',
             'userPhoto' => 'photo-1.png',
-            'userRights' => '["cetakLaporan", "cetakRekap"]',
-            'class' => '["Grafika Rabu 7.30-10.00", "Grafika Kamis 13.30-15.00"]'
+            'userRights' => json_encode(['cetakLaporan', 'cetakRekap'])
         ]);
 
         User::create([
-            'userID' => 'US$100',
+            'userID' => 'c',
             'pwd' => Hash::make('123456789'),
             'userToken' => 'contohGHI',
             'userName' => 'Prabowo Widodo',
             'userPhoto' => 'photo-2.png',
-            'userRights' => '["buatRPS", "editRPS", "buatBasisEvaluasi", "editBasisEvaluasi", "cetakLaporan", "inputNilai"]',
-            'class' => '["Algoritma Senin 7.30-10.00", "Algoritma Selasa 13.30-15.00", "Algoritma Kamis 7.30-10.00"]'
+            'userRights' => json_encode(['buatRPS', 'editRPS', 'buatBasisEvaluasi', 'editBasisEvaluasi', 'cetakLaporan', 'inputNilai'])
+        ]);
+
+        // Kelas Data
+        Kelas::create([
+            'userID' => '901111',
+            'class' => json_encode([
+                'Basis Data Jumat 7.30-10.00'
+            ])
+        ]);
+        Kelas::create([
+            'userID' => 'Aa7610',
+            'class' => json_encode([
+                'Grafika Rabu 7.30-10.00',
+                'Grafika Kamis 13.30-15.00'
+            ])
+        ]);
+        Kelas::create([
+            'userID' => 'US$100',
+            'class' => json_encode([
+                'Algoritma Senin 7.30-10.00',
+                'Algoritma Selasa 13.30-15.00',
+                'Algoritma Kamis 7.30-10.00'
+            ])
         ]);
 
         // CPL Data
