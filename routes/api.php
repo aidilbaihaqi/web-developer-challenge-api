@@ -25,4 +25,6 @@ Route::middleware('auth.token')->group(function () {
   Route::post('teachingclass', [APIController::class, 'teachingclass']);
   Route::post('listCPL', [APIController::class, 'listCPL']);
   Route::post('addCPL', [APIController::class, 'addCPL']);
+  Route::post('updateCPL', [APIController::class, 'updateCPL']);
+  Route::post('removeCPL', [APIController::class, 'removeCPL']);
 });
