@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\CPL;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Kelas;
@@ -67,6 +69,14 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // CPL Data
+        CPL::create([
+            'kodecpl' => 'CPL01',
+            'deskripsi' => 'Mampu bekerja sama secara interpersonal'
+        ]);
+        CPL::create([
+            'kodecpl' => 'CPL02',
+            'deskripsi' => 'Menginternalisasi nilai keimanan'
+        ]);
 
         // CPMK Data
 
