@@ -37,6 +37,10 @@ class APIController extends Controller
         $user = $request->attributes->get('user');
         $kelas = Kelas::where('userID', $user->userID)->first();
 
+        // return response()->json([
+        //     'data' => $kelas
+        // ]);
+
         if($request->class == 'list') {
             return response()->json([
                 'class' => json_decode($kelas->kelas)
@@ -93,8 +97,66 @@ class APIController extends Controller
                 'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
             ], 401);
         }
+    }
 
-        
-        
+    public function updateCPL(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('editCPL')) {
+            $request->validate([
+                'kodecpl' => 'required|string',
+                'deskripsi' => 'required'
+            ]);
+
+            $query = CPL::find($request->kodecpl);
+            $query->update([
+                'kodecpl' => $request->kodecpl,
+                'deskripsi' => $request->deskripsi
+            ]);
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+
+            
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
+    }
+
+    public function removeCPL(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('hapusCPL')) {
+
+            $query = CPL::find($request->kodecpl);
+            $query->delete();
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+
+            
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
     }
 }
