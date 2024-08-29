@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'userID' => 'c',
+            'userID' => 'US$100',
             'pwd' => Hash::make('123456789'),
             'userToken' => 'contohGHI',
             'userName' => 'Prabowo Widodo',
