@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->string('userID')->unique();
-            $table->json('class');
+            $table->json('kelas');
             $table->timestamps();
         });
     }

@@ -46,20 +46,20 @@ class DatabaseSeeder extends Seeder
         // Kelas Data
         Kelas::create([
             'userID' => '901111',
-            'class' => json_encode([
+            'kelas' => json_encode([
                 'Basis Data Jumat 7.30-10.00'
             ])
         ]);
         Kelas::create([
             'userID' => 'Aa7610',
-            'class' => json_encode([
+            'kelas' => json_encode([
                 'Grafika Rabu 7.30-10.00',
                 'Grafika Kamis 13.30-15.00'
             ])
         ]);
         Kelas::create([
             'userID' => 'US$100',
-            'class' => json_encode([
+            'kelas' => json_encode([
                 'Algoritma Senin 7.30-10.00',
                 'Algoritma Selasa 13.30-15.00',
                 'Algoritma Kamis 7.30-10.00'
