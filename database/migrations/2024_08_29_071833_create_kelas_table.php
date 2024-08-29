@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->string('userID')->unique();
-            $table->string('pwd');
-            $table->string('userToken')->nullable();
-            $table->string('userName');
-            $table->text('userPhoto');
-            $table->json('userRights');
+            $table->json('class');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('kelas');
     }
 };
