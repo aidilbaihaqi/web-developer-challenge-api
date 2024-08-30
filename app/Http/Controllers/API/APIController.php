@@ -163,7 +163,7 @@ class APIController extends Controller
     public function listCPMK(Request $request) {
         $data = CPMK::select('kodecpl', 'kodecpmk', 'deskripsi')->get();
 
-        if($request->cpl == 'list') {
+        if($request->cpmk == 'list') {
             return response()->json([
                 'cpl' => $data
             ], 200);
@@ -270,6 +270,6 @@ class APIController extends Controller
     }
 
     // CRUD Course
-    
+
 
 }
