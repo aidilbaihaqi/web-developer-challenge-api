@@ -23,8 +23,14 @@ Route::post('login', [APIController::class, 'login']);
 
 Route::middleware('auth.token')->group(function () {
   Route::post('teachingclass', [APIController::class, 'teachingclass']);
+  
   Route::post('listCPL', [APIController::class, 'listCPL']);
   Route::post('addCPL', [APIController::class, 'addCPL']);
   Route::post('updateCPL', [APIController::class, 'updateCPL']);
   Route::post('removeCPL', [APIController::class, 'removeCPL']);
+
+  Route::post('listCPMK', [APIController::class, 'listCPMK']);
+  Route::post('addCPMK', [APIController::class, 'addCPMK']);
+  Route::post('updateCPMK', [APIController::class, 'updateCPMK']);
+  Route::post('removeCPMK', [APIController::class, 'removeCPMK']);
 });
