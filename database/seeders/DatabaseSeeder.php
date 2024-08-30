@@ -9,6 +9,7 @@ use App\Models\CPMK;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Kelas;
+use App\Models\Course;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -92,5 +93,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Course Data
+        Course::create([
+            'kodemk' => 'UNIV12101',
+            'namamk' => 'Agama',
+            'sks' => 3
+        ]);
     }
 }
