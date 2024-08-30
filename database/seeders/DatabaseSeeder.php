@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\CPL;
+use App\Models\CPMK;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Kelas;
@@ -79,6 +80,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // CPMK Data
+        CPMK::create([
+            'kodecpmk' => 'CPMK011',
+            'kodecpl' => 'CPL01',
+            'deskripsi' => 'Mampu bekerja sama'
+        ]);
+        CPMK::create([
+            'kodecpmk' => 'CPMK012',
+            'kodecpl' => 'CPL01',
+            'deskripsi' => 'Mampu berkomunikasi'
+        ]);
 
         // Course Data
     }
