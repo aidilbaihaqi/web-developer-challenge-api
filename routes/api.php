@@ -23,7 +23,7 @@ Route::post('login', [APIController::class, 'login']);
 
 Route::middleware('auth.token')->group(function () {
   Route::post('teachingclass', [APIController::class, 'teachingclass']);
-  
+
   Route::post('listCPL', [APIController::class, 'listCPL']);
   Route::post('addCPL', [APIController::class, 'addCPL']);
   Route::post('updateCPL', [APIController::class, 'updateCPL']);
@@ -33,4 +33,9 @@ Route::middleware('auth.token')->group(function () {
   Route::post('addCPMK', [APIController::class, 'addCPMK']);
   Route::post('updateCPMK', [APIController::class, 'updateCPMK']);
   Route::post('removeCPMK', [APIController::class, 'removeCPMK']);
+  
+  Route::post('listCourse', [APIController::class, 'listCourse']);
+  Route::post('addCourse', [APIController::class, 'addCourse']);
+  Route::post('updateCourse', [APIController::class, 'updateCourse']);
+  Route::post('removeCourse', [APIController::class, 'removeCourse']);
 });

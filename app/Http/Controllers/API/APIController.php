@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Kelas;
 use App\Models\CPL;
 use App\Models\CPMK;
+use App\Models\Course;
 use Illuminate\Support\Facades\Hash;
 
 class APIController extends Controller
@@ -165,7 +166,7 @@ class APIController extends Controller
 
         if($request->cpmk == 'list') {
             return response()->json([
-                'cpl' => $data
+                'cpmk' => $data
             ], 200);
         }else {
             return response()->json([
@@ -270,6 +271,112 @@ class APIController extends Controller
     }
 
     // CRUD Course
+    public function listCourse(Request $request) {
+        $data = Course::select('kodemk', 'namamk', 'sks')->get();
 
+        if($request->mk == 'list') {
+            return response()->json([
+                'mk' => $data
+            ], 200);
+        }else {
+            return response()->json([
+                'message' => 'Gagal Mengambil Data'
+            ], 401);
+        }
+    }
+    public function addCourse(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
 
+        if($hakAkses->contains('buatCPL')) {
+            $request->validate([
+                'kodemk' => 'required|string',
+                'namamk' => 'required|string',
+                'sks' => 'required|integer'
+            ]);
+
+            $query = Course::create([
+                'kodemk' => $request->kodemk,
+                'namamk' => $request->namamk,
+                'sks' => $request->sks
+            ]);
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+
+            
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
+    }
+    public function updateCourse(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('editCPL')) {
+            $request->validate([
+                'kodemk' => 'required|string',
+                'namamk' => 'required|string',
+                'sks' => 'required|integer'
+            ]);
+
+            $query = Course::find($request->kodemk);
+            $query->update([
+                'kodemk' => $request->kodemk,
+                'namamk' => $request->namamk,
+                'sks' => $request->sks
+            ]);
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+
+            
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
+    }
+    public function removeCourse(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('editCPL')) {
+
+            $query = Course::find($request->kodemk);
+            $query->delete();
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+
+            
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
+    }
 }
