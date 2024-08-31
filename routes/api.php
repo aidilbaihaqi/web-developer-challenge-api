@@ -43,4 +43,9 @@ Route::middleware('auth.token')->group(function () {
   Route::post('addRPS', [APIController::class, 'addRPS']);
   Route::post('updateRPS', [APIController::class, 'updateRPS']);
   Route::post('removeRPS', [APIController::class, 'removeRPS']);
+
+  Route::post('listBasisEvaluasi', [APIController::class, 'listBasisEvaluasi']);
+  Route::post('addBasisEvaluasi', [APIController::class, 'addBasisEvaluasi']);
+  Route::post('updateBasisEvaluasi', [APIController::class, 'updateBasisEvaluasi']);
+  Route::post('removeBasisEvaluasi', [APIController::class, 'removeBasisEvaluasi']);
 });
