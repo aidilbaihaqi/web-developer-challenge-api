@@ -460,6 +460,16 @@ class APIController extends Controller
                     'message' => 'Gagal Mengambil Data'
                 ], 401);
             }
+        }elseif($hakAkses->contains('buatBasisEvaluasi')) {
+            if($request->rps == 'list') {
+                return response()->json([
+                    'rps' => $data
+                ], 200);
+            }else {
+                return response()->json([
+                    'message' => 'Gagal Mengambil Data'
+                ], 401);
+            }
         }else {
             return response()->json([
                 'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
@@ -471,6 +481,34 @@ class APIController extends Controller
         $hakAkses = collect(json_decode($user->userRights));
 
         if($hakAkses->contains('buatRPS') or $hakAkses->contains('editRPS')) {
+            $request->validate([
+                'kodeRPS' => 'required|string',
+                'kodemk' => 'required|string',
+                'judul' => 'required|string',
+                'deskripsi' => 'required|string',
+                'semester' => 'required|integer'
+            ]);
+
+            $query = RPS::create([
+                'kodeRPS' => $request->kodeRPS,
+                'kodemk' => $request->kodemk,
+                'judul' => $request->judul,
+                'deskripsi' => $request->deskripsi,
+                'semester' => $request->semester,
+            ]);
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+
+            
+        }elseif($hakAkses->contains('buatBasisEvaluasi')) {
             $request->validate([
                 'kodeRPS' => 'required|string',
                 'kodemk' => 'required|string',
@@ -535,6 +573,33 @@ class APIController extends Controller
                     'status' => 'Gagal'
                 ], 401);
             }
+        }elseif($hakAkses->contains('buatBasisEvaluasi')) {
+            $request->validate([
+                'kodeRPS' => 'required|string',
+                'kodemk' => 'required|string',
+                'judul' => 'required|string',
+                'deskripsi' => 'required|string',
+                'semester' => 'required|integer'
+            ]);
+
+            $query = RPS::find($request->kodeRPS);
+            $query->update([
+                'kodeRPS' => $request->kodeRPS,
+                'kodemk' => $request->kodemk,
+                'judul' => $request->judul,
+                'deskripsi' => $request->deskripsi,
+                'semester' => $request->semester,
+            ]);
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
         }else {
             return response()->json([
                 'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
@@ -561,6 +626,33 @@ class APIController extends Controller
             }
 
             
+        }elseif($hakAkses->contains('buatBasisEvaluasi')) {
+            $request->validate([
+                'kodeRPS' => 'required|string',
+                'kodemk' => 'required|string',
+                'judul' => 'required|string',
+                'deskripsi' => 'required|string',
+                'semester' => 'required|integer'
+            ]);
+
+            $query = RPS::find($request->kodeRPS);
+            $query->update([
+                'kodeRPS' => $request->kodeRPS,
+                'kodemk' => $request->kodemk,
+                'judul' => $request->judul,
+                'deskripsi' => $request->deskripsi,
+                'semester' => $request->semester,
+            ]);
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
         }else {
             return response()->json([
                 'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
