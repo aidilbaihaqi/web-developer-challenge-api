@@ -37,42 +37,66 @@ class APIController extends Controller
 
     public function teachingclass(Request $request) {
         $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
         $kelas = Kelas::where('userID', $user->userID)->first();
 
-        // return response()->json([
-        //     'data' => $kelas
-        // ]);
-
-        if($request->class == 'list') {
-            return response()->json([
-                'class' => json_decode($kelas->kelas)
-            ], 200);
+        if($hakAkses->contains('inputNilai')) {
+            if($request->class == 'list') {
+                return response()->json([
+                    'class' => json_decode($kelas->kelas)
+                ], 200);
+            }else {
+                return response()->json([
+                    'message' => 'Gagal Mengambil Data'
+                ], 401);
+            }
         }else {
             return response()->json([
-                'message' => 'Gagal Mengambil Data'
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
             ], 401);
         }
+        
     }
     
-    // CRUD CPL
+    // CRUD CPL (clear)
     public function listCPL(Request $request) {
         $data = CPL::select('kodecpl', 'deskripsi')->get();
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
 
-        if($request->cpl == 'list') {
-            return response()->json([
-                'cpl' => $data
-            ], 200);
+        if($hakAkses->contains('buatCPL') or $hakAkses->contains('editCPL')) {
+            if($request->cpl == 'list') {
+                return response()->json([
+                    'cpl' => $data
+                ], 200);
+            }else {
+                return response()->json([
+                    'message' => 'Gagal Mengambil Data'
+                ], 401);
+            }
+        }elseif($hakAkses->contains('cetakLaporan')) {
+            if($request->cpl == 'list') {
+                return response()->json([
+                    'cpl' => $data
+                ], 200);
+            }else {
+                return response()->json([
+                    'message' => 'Gagal Mengambil Data'
+                ], 401);
+            }
         }else {
             return response()->json([
-                'message' => 'Gagal Mengambil Data'
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
             ], 401);
         }
+
+        
     }
     public function addCPL(Request $request) {
         $user = $request->attributes->get('user');
         $hakAkses = collect(json_decode($user->userRights));
 
-        if($hakAkses->contains('buatCPL')) {
+        if($hakAkses->contains('buatCPL') or $hakAkses->contains('editCPL')) {
             $request->validate([
                 'kodecpl' => 'required|string',
                 'deskripsi' => 'required'
@@ -104,7 +128,7 @@ class APIController extends Controller
         $user = $request->attributes->get('user');
         $hakAkses = collect(json_decode($user->userRights));
 
-        if($hakAkses->contains('editCPL')) {
+        if($hakAkses->contains('buatCPL') or $hakAkses->contains('editCPL')) {
             $request->validate([
                 'kodecpl' => 'required|string',
                 'deskripsi' => 'required'
@@ -137,7 +161,7 @@ class APIController extends Controller
         $user = $request->attributes->get('user');
         $hakAkses = collect(json_decode($user->userRights));
 
-        if($hakAkses->contains('hapusCPL')) {
+        if($hakAkses->contains('buatCPL') or $hakAkses->contains('editCPL')) {
 
             $query = CPL::find($request->kodecpl);
             $query->delete();
@@ -160,17 +184,35 @@ class APIController extends Controller
         }
     }
 
-    // CRUD CPMK
+    // CRUD CPMK (clear)
     public function listCPMK(Request $request) {
         $data = CPMK::select('kodecpl', 'kodecpmk', 'deskripsi')->get();
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
 
-        if($request->cpmk == 'list') {
+        if($hakAkses->contains('buatCPL') or $hakAkses->contains('editCPL')) {
+            if($request->cpmk == 'list') {
+                return response()->json([
+                    'cpmk' => $data
+                ], 200);
+            }else {
+                return response()->json([
+                    'message' => 'Gagal Mengambil Data'
+                ], 401);
+            }
+        }elseif($hakAkses->contains('cetakLaporan')) {
+            if($request->cpmk == 'list') {
+                return response()->json([
+                    'cpmk' => $data
+                ], 200);
+            }else {
+                return response()->json([
+                    'message' => 'Gagal Mengambil Data'
+                ], 401);
+            }
+        } else {
             return response()->json([
-                'cpmk' => $data
-            ], 200);
-        }else {
-            return response()->json([
-                'message' => 'Gagal Mengambil Data'
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
             ], 401);
         }
     }
@@ -178,7 +220,7 @@ class APIController extends Controller
         $user = $request->attributes->get('user');
         $hakAkses = collect(json_decode($user->userRights));
 
-        if($hakAkses->contains('buatCPL')) {
+        if($hakAkses->contains('buatCPL') or $hakAkses->contains('editCPL')) {
             $request->validate([
                 'kodecpl' => 'required|string',
                 'kodecpmk' => 'required|string',
@@ -212,7 +254,7 @@ class APIController extends Controller
         $user = $request->attributes->get('user');
         $hakAkses = collect(json_decode($user->userRights));
 
-        if($hakAkses->contains('editCPL')) {
+        if($hakAkses->contains('buatCPL') or $hakAkses->contains('editCPL')) {
             $request->validate([
                 'kodecpl' => 'required|string',
                 'kodecpmk' => 'required|string',
@@ -247,7 +289,7 @@ class APIController extends Controller
         $user = $request->attributes->get('user');
         $hakAkses = collect(json_decode($user->userRights));
 
-        if($hakAkses->contains('editCPL')) {
+        if($hakAkses->contains('buatCPL') or $hakAkses->contains('editCPL')) {
 
             $query = CPMK::find($request->kodecpmk);
             $query->delete();
@@ -270,25 +312,46 @@ class APIController extends Controller
         }
     }
 
-    // CRUD Course
+    // CRUD Course note : tinggal kasih hak akses user disini
     public function listCourse(Request $request) {
         $data = Course::select('kodemk', 'namamk', 'sks')->get();
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
 
-        if($request->mk == 'list') {
-            return response()->json([
-                'mk' => $data
-            ], 200);
+        if($hakAkses->contains('rancangKurikulum') or $hakAkses->contains('editKurikulum')) {
+            if($request->mk == 'list') {
+                return response()->json([
+                    'mk' => $data
+                ], 200);
+            }else {
+                return response()->json([
+                    'message' => 'Gagal Mengambil Data'
+                ], 401);
+            }
+        }elseif($hakAkses->contains('cetakLaporan') or $hakAkses->contains('cetakRekap')) {
+            if($request->mk == 'list') {
+                return response()->json([
+                    'mk' => $data
+                ], 200);
+            }else {
+                return response()->json([
+                    'message' => 'Gagal Mengambil Data'
+                ], 401);
+            }
         }else {
             return response()->json([
-                'message' => 'Gagal Mengambil Data'
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
             ], 401);
         }
+
+        
+        
     }
     public function addCourse(Request $request) {
         $user = $request->attributes->get('user');
         $hakAkses = collect(json_decode($user->userRights));
 
-        if($hakAkses->contains('buatCPL')) {
+        if($hakAkses->contains('rancangKurikulum') or $hakAkses->contains('editKurikulum')) {
             $request->validate([
                 'kodemk' => 'required|string',
                 'namamk' => 'required|string',
@@ -322,7 +385,7 @@ class APIController extends Controller
         $user = $request->attributes->get('user');
         $hakAkses = collect(json_decode($user->userRights));
 
-        if($hakAkses->contains('editCPL')) {
+        if($hakAkses->contains('rancangKurikulum') or $hakAkses->contains('editKurikulum')) {
             $request->validate([
                 'kodemk' => 'required|string',
                 'namamk' => 'required|string',
@@ -357,7 +420,7 @@ class APIController extends Controller
         $user = $request->attributes->get('user');
         $hakAkses = collect(json_decode($user->userRights));
 
-        if($hakAkses->contains('editCPL')) {
+        if($hakAkses->contains('rancangKurikulum') or $hakAkses->contains('editKurikulum')) {
 
             $query = Course::find($request->kodemk);
             $query->delete();

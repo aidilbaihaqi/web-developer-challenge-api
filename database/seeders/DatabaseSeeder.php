@@ -4,12 +4,14 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\BasisEvaluasi;
 use App\Models\CPL;
 use App\Models\CPMK;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Course;
+use App\Models\RPS;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -97,6 +99,24 @@ class DatabaseSeeder extends Seeder
             'kodemk' => 'UNIV12101',
             'namamk' => 'Agama',
             'sks' => 3
+        ]);
+
+        // RPS Data
+        RPS::create([
+            'kodeRPS' => 'RPS101',
+            'kodemk' => 'UNIV12101',
+            'judul' => 'RPS Agama',
+            'deskripsi' => 'encana Pembelajaran Semester untuk mata kuliah Agama',
+            'semester' => 1
+        ]);
+
+        // BasisEvaluasi Data
+        BasisEvaluasi::create([
+            'kodeEvaluasi' => 'BE1101',
+            'kodeRPS' => 'RPS101',
+            'namaEvaluasi' => 'Ujian Tengah Semester',
+            'bobotEvaluasi' => 30.00,
+            'deskripsi' => "Evaluasi berupa ujian yang dilakukan di tengah semester"
         ]);
     }
 }
