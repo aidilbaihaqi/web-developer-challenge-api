@@ -10,6 +10,7 @@ use App\Models\CPL;
 use App\Models\CPMK;
 use App\Models\Course;
 use App\Models\RPS;
+use App\Models\BasisEvaluasi;
 use Illuminate\Support\Facades\Hash;
 
 class APIController extends Controller
@@ -547,6 +548,129 @@ class APIController extends Controller
         if($hakAkses->contains('buatRPS') or $hakAkses->contains('editRPS')) {
 
             $query = RPS::find($request->kodeRPS);
+            $query->delete();
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+
+            
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
+    }
+
+    public function listBasisEvaluasi(Request $request) {
+        $data = BasisEvaluasi::all();
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('buatBasisEvaluasi') or $hakAkses->contains('editBasisEvaluasi')) {
+            if($request->basisEvaluasi == 'list') {
+                return response()->json([
+                    'basisEvaluasi' => $data
+                ], 200);
+            }else {
+                return response()->json([
+                    'message' => 'Gagal Mengambil Data'
+                ], 401);
+            }
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        } 
+    }
+    public function addBasisEvaluasi(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('buatBasisEvaluasi') or $hakAkses->contains('editBasisEvaluasi')) {
+            $request->validate([
+                'kodeEvaluasi' => 'required|string',
+                'kodeRPS' => 'required|string',
+                'namaEvaluasi' => 'required|string',
+                'bobotEvaluasi' => 'required',
+                'deskripsi' => 'required|string',
+            ]);
+
+            $query = BasisEvaluasi::create([
+                'kodeEvaluasi' => $request->kodeEvaluasi,
+                'kodeRPS' => $request->kodeRPS,
+                'namaEvaluasi' => $request->namaEvaluasi,
+                'bobotEvaluasi' => $request->bobotEvaluasi,
+                'deskripsi' => $request->deskripsi,
+            ]);
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+
+            
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
+    }
+    public function updateBasisEvaluasi(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('buatBasisEvaluasi') or $hakAkses->contains('editBasisEvaluasi')) {
+            $request->validate([
+                'kodeEvaluasi' => 'required|string',
+                'kodeRPS' => 'required|string',
+                'namaEvaluasi' => 'required|string',
+                'bobotEvaluasi' => 'required',
+                'deskripsi' => 'required|string',
+            ]);
+
+            $query = BasisEvaluasi::find($request->kodeEvaluasi);
+            $query->update([
+                'kodeEvaluasi' => $request->kodeEvaluasi,
+                'kodeRPS' => $request->kodeRPS,
+                'namaEvaluasi' => $request->namaEvaluasi,
+                'bobotEvaluasi' => $request->bobotEvaluasi,
+                'deskripsi' => $request->deskripsi,
+            ]);
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
+    }
+    public function removeBasisEvaluasi(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('buatBasisEvaluasi') or $hakAkses->contains('editBasisEvaluasi')) {
+
+            $query = BasisEvaluasi::find($request->kodeEvaluasi);
             $query->delete();
 
             if($query) {
