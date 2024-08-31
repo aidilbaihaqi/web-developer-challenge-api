@@ -9,6 +9,7 @@ use App\Models\Kelas;
 use App\Models\CPL;
 use App\Models\CPMK;
 use App\Models\Course;
+use App\Models\RPS;
 use Illuminate\Support\Facades\Hash;
 
 class APIController extends Controller
@@ -423,6 +424,129 @@ class APIController extends Controller
         if($hakAkses->contains('rancangKurikulum') or $hakAkses->contains('editKurikulum')) {
 
             $query = Course::find($request->kodemk);
+            $query->delete();
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+
+            
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
+    }
+
+    public function listRPS(Request $request) {
+        $data = RPS::all();
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('buatRPS') or $hakAkses->contains('editRPS')) {
+            if($request->rps == 'list') {
+                return response()->json([
+                    'rps' => $data
+                ], 200);
+            }else {
+                return response()->json([
+                    'message' => 'Gagal Mengambil Data'
+                ], 401);
+            }
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        } 
+    }
+    public function addRPS(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('buatRPS') or $hakAkses->contains('editRPS')) {
+            $request->validate([
+                'kodeRPS' => 'required|string',
+                'kodemk' => 'required|string',
+                'judul' => 'required|string',
+                'deskripsi' => 'required|string',
+                'semester' => 'required|integer'
+            ]);
+
+            $query = RPS::create([
+                'kodeRPS' => $request->kodeRPS,
+                'kodemk' => $request->kodemk,
+                'judul' => $request->judul,
+                'deskripsi' => $request->deskripsi,
+                'semester' => $request->semester,
+            ]);
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+
+            
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
+    }
+    public function updateRPS(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('buatRPS') or $hakAkses->contains('editRPS')) {
+            $request->validate([
+                'kodeRPS' => 'required|string',
+                'kodemk' => 'required|string',
+                'judul' => 'required|string',
+                'deskripsi' => 'required|string',
+                'semester' => 'required|integer'
+            ]);
+
+            $query = RPS::find($request->kodeRPS);
+            $query->update([
+                'kodeRPS' => $request->kodeRPS,
+                'kodemk' => $request->kodemk,
+                'judul' => $request->judul,
+                'deskripsi' => $request->deskripsi,
+                'semester' => $request->semester,
+            ]);
+
+            if($query) {
+                return response()->json([
+                    'status' => 'OK'
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'Gagal'
+                ], 401);
+            }
+        }else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki hak akses untuk fitur ini!'
+            ], 401);
+        }
+    }
+    public function removeRPS(Request $request) {
+        $user = $request->attributes->get('user');
+        $hakAkses = collect(json_decode($user->userRights));
+
+        if($hakAkses->contains('buatRPS') or $hakAkses->contains('editRPS')) {
+
+            $query = RPS::find($request->kodeRPS);
             $query->delete();
 
             if($query) {
